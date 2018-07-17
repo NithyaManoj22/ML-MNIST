@@ -3,6 +3,7 @@ My student project for machine learning through MNIST exercise.
 
 * The python which comes with MacOS does not have certain packages, so it is best to install the packages through [Anaconda Distribution](https://www.anaconda.com/download/#macos). After that, use ```conda install keras``` which will install the latest version of keras. Though the example does not work with the latest (keras 2.0 is not back compatible with 1.2), I had to use ```pip install keras=1.2.2``` to adjust the version to 1.2.2. 
 
+* Use `conda install theano pygpu` to install theano; someone `pip install theano` would have problem after going into python, it cannot find the installation. 
 
 * Somehow keras by default use tensorflow as its backend, use ```export KERAS_BACKEND=theano``` to switch it to theano. 
 
@@ -12,7 +13,7 @@ My student project for machine learning through MNIST exercise.
 
 * Keras 2.2 does not compile ```model.add(Convolution2D(32, 3, 3, activation='relu', input_shape=(1,28,28)))``` has to revert the keras version back to 1.2.2 using ```pip install keras=1.2.2```.  Use 1.2.2 instead of other version because that is the minimum version that coremltools is compatible with. 
 
-* Somehow it has error for ```model.add(Dense(128, activation='relu'))```, has to add the following script ```from keras import backend as K;
+* Somehow it has error "OverflowError: Range exceeds valid bounds" for ```model.add(Dense(128, activation='relu'))```, has to add the following script ```from keras import backend as K;
 K.set_image_dim_ordering('th')``` which remove the error. 
 
 * Use ```pip install coremltools``` to install Apple coremltools package. 
