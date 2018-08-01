@@ -25,6 +25,8 @@ coreml_model = coremltools.converters.keras.convert('multi_digits_keras.h5')
 coreml_model.save('mnist_cnn_keras.mlmodel')
 ```
 
+* To update Tensorflow to latest: ```conda install -c conda-forge tensorflow```. 
+
 ### References
 
 * [TUTORIALS
