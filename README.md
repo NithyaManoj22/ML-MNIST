@@ -25,7 +25,13 @@ coreml_model = coremltools.converters.keras.convert('multi_digits_keras.h5')
 coreml_model.save('mnist_cnn_keras.mlmodel')
 ```
 
-* To update Tensorflow to latest: ```conda install -c conda-forge tensorflow```. and ```conda install -c derickl coremltools``` to install coremltools. 
+* To update Tensorflow to latest: ```conda install -c conda-forge tensorflow```. Use ```conda install -c derickl coremltools``` to install coremltools seems not be able to force to use a lower version of tensorflow. 
+
+Note: 
+```
+WARNING:root:Keras version 2.2.0 detected. Last version known to be fully compatible of Keras is 2.1.3 .
+WARNING:root:TensorFlow version 1.9.0 detected. Last version known to be fully compatible is 1.5.0 .
+```
 
 
 ### References
