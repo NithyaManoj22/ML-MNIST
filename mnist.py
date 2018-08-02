@@ -4,10 +4,9 @@ np.random.seed(123)  # for reproducibility
  
 from keras.models import Sequential
 from keras.layers import Dense, Dropout, Activation, Flatten
-from keras.layers import Convolution2D, MaxPooling2D
+from keras.layers import Conv2D, MaxPooling2D
 from keras.utils import np_utils
 from keras.datasets import mnist
-from theano import ifelse
 from keras import backend as K
 K.set_image_dim_ordering('th')
  
@@ -29,8 +28,8 @@ Y_test = np_utils.to_categorical(y_test, 10)
 # 7. Define model architecture
 model = Sequential()
  
-model.add(Convolution2D(32, 3, 3, activation='relu', input_shape=(1,28,28)))
-model.add(Convolution2D(32, 3, 3, activation='relu'))
+model.add(Conv2D(32, (3, 3), activation='relu', input_shape=(1,28,28)))
+model.add(Conv2D(32, (3, 3), activation='relu'))
 model.add(MaxPooling2D(pool_size=(2,2)))
 model.add(Dropout(0.25))
  
