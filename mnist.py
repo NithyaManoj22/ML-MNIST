@@ -71,6 +71,6 @@ score = model.evaluate(x_test, y_test, verbose=0)
 print('Test loss:', score[0])
 print('Test accuracy:', score[1])
 model.save('sunny_mnist_model.h5')
-coreml_model = coremltools.converters.keras.convert('sunny_mnist_model.h5')
+coreml_model = coremltools.converters.keras.convert('sunny_mnist_model.h5', input_names=['image'], image_input_names=['image'], output_names=['output'], image_scale=1/255.0, class_labels=[0,1,2,3,4,5,6,7,8,9])
 coreml_model.save('sunny_mnist_model.mlmodel')
 
