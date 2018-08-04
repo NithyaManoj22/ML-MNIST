@@ -27,6 +27,8 @@ coreml_model.save('mnist_cnn_keras.mlmodel')
 
 * To update Tensorflow to latest: ```conda install -c conda-forge tensorflow```. Use ```conda install -c derickl coremltools``` to install coremltools seems not be able to force to use a lower version of tensorflow. 
 
+* Currently as of July 2018, coremltools only supports Keras 2.1.3 (no later version like 2.2.2), and Tensorflow up to 1.5.0 (no newer version like 1.10). And it also only support `channel_last` as its data format. Edit keras.json located at ```$HOME/.keras/keras.json``` to change the default data format. 
+
 Note: 
 ```
 WARNING:root:Keras version 2.2.0 detected. Last version known to be fully compatible of Keras is 2.1.3 .
