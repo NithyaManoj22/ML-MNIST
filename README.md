@@ -34,7 +34,17 @@ Note:
 WARNING:root:Keras version 2.2.0 detected. Last version known to be fully compatible of Keras is 2.1.3 .
 WARNING:root:TensorFlow version 1.9.0 detected. Last version known to be fully compatible is 1.5.0 .
 ```
+* Convert a tf.Keras model to .tflite
 
+The following example converts a tf.keras model into a TensorFlow Lite Flatbuffer. The tf.keras file must contain both the model and the weights.
+
+```
+tflite_convert \
+  --output_file=/tmp/foo.tflite \
+  --keras_model_file=/tmp/keras_model.h5
+```
+
+Note: TOCO still accepts frozen GraphDefs, so it is still possible to go from h5 -> pb -> tflite. This is the recommended approach for TensorFlow 1.9 and before. For TensorFlow after 1.9, we can use the command above to directly convert it into .tflite from .h5, see more details from [Issue with converting Keras .h5 files to .tflite files](https://github.com/tensorflow/tensorflow/issues/20878). 
 
 ### References
 
@@ -42,5 +52,6 @@ WARNING:root:TensorFlow version 1.9.0 detected. Last version known to be fully c
 Keras Tutorial: The Ultimate Beginner’s Guide to Deep Learning in Python](https://elitedatascience.com/keras-tutorial-deep-learning-in-python)
 * [Saving & Loading Keras Models](https://jovianlin.io/saving-loading-keras-models/)
 * [Converting Trained Models to Core ML](https://developer.apple.com/documentation/coreml/converting_trained_models_to_core_ml)
+* [TensorFlow Lite Optimizing Converter command-line examples](https://github.com/tensorflow/tensorflow/blob/master/tensorflow/contrib/lite/toco/g3doc/cmdline_examples.md#keras)
 * [Installing Jupyter](https://jupyter.org/install.html)
 * [Running the Jupyter Notebook](https://jupyter.readthedocs.io/en/latest/running.html)
