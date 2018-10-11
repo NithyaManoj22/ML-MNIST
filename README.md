@@ -46,6 +46,16 @@ tflite_convert \
 
 Note: TOCO still accepts frozen GraphDefs, so it is still possible to go from h5 -> pb -> tflite. This is the recommended approach for TensorFlow 1.9 and before. For TensorFlow after 1.9, we can use the command above to directly convert it into .tflite from .h5, see more details from [Issue with converting Keras .h5 files to .tflite files](https://github.com/tensorflow/tensorflow/issues/20878). 
 
+* Code Sample from Anumeet
+```
+import tensorflow as tf
+
+converter = tf.contrib.lite.TocoConverter.from_keras_model_file("CardReader_DeepFive.h5")
+tflite_model = converter.convert()
+open("CardReader_DeepFive.tflite", "wb").write(tflite_model)
+```
+Note: it has error "AttributeError: module 'tensorflow.contrib.lite.python.lite' has no attribute 'TocoConverter'". Need to find out whether I need to install newer version of TensorFlow. 
+
 ### References
 
 * [TUTORIALS
