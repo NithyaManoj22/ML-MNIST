@@ -46,15 +46,44 @@ tflite_convert \
 
 Note: TOCO still accepts frozen GraphDefs, so it is still possible to go from h5 -> pb -> tflite. This is the recommended approach for TensorFlow 1.9 and before. For TensorFlow after 1.9, we can use the command above to directly convert it into .tflite from .h5, see more details from [Issue with converting Keras .h5 files to .tflite files](https://github.com/tensorflow/tensorflow/issues/20878). 
 
-* Code Sample from Anumeet
+* Code Sample to Convert to .tflite Model
 ```
 import tensorflow as tf
-
-converter = tf.contrib.lite.TocoConverter.from_keras_model_file("CardReader_DeepFive.h5")
+converter = tf.contrib.lite.TocoConverter.from_keras_model_file("sunny-card-model-deep-keras224-19-0.00155.h5")
 tflite_model = converter.convert()
-open("CardReader_DeepFive.tflite", "wb").write(tflite_model)
+open("CardReader_DeepFive_keras224_good.tflite", "wb").write(tflite_model)
 ```
-Note: it has error "AttributeError: module 'tensorflow.contrib.lite.python.lite' has no attribute 'TocoConverter'". Need to find out whether I need to install newer version of TensorFlow. 
+Note: it only works with Tensorflow 1.11.0 (somehow 1.9.0 does not support from_keras_model_file method). The output would be: 
+```
+INFO:tensorflow:Froze 18 variables.
+INFO:tensorflow:Converted 18 variables to const ops.
+14293388
+```
+
+* Code Sample to Test Out .tflite Model
+```
+import numpy as np
+import tensorflow as tf
+
+# Load TFLite model and allocate tensors.
+interpreter = tf.contrib.lite.Interpreter(model_path="converted_model.tflite")
+interpreter.allocate_tensors()
+
+# Get input and output tensors.
+input_details = interpreter.get_input_details()
+output_details = interpreter.get_output_details()
+
+# Test model on random input data.
+input_shape = input_details[0]['shape']
+input_data = np.array(np.random.random_sample(input_shape), dtype=np.float32)
+interpreter.set_tensor(input_details[0]['index'], input_data)
+
+interpreter.invoke()
+output_data = interpreter.get_tensor(output_details[0]['index'])
+print(output_data)
+```
+
+Code from [TensorFlow Lite Python interpreter](https://www.tensorflow.org/lite/convert/python_api). 
 
 ### References
 
